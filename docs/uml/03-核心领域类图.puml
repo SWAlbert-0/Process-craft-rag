@@ -1,0 +1,86 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName "Microsoft YaHei"
+skinparam dpi 150
+skinparam classAttributeIconSize 0
+class User {
+  +id: UUID
+  +username: String
+  +role: Role
+  +isActive: Boolean
+}
+class Document {
+  +id: UUID
+  +name: String
+  +contentSha256: String
+  +status: DocumentStatus
+  +pageCount: Integer
+  +publishVersion()
+  +markDeleting()
+}
+class IndexVersion {
+  +id: UUID
+  +status: VersionStatus
+  +parserVersion: String
+  +chunkingVersion: String
+  +embeddingModel: String
+  +chunkCount: Integer
+  +publish()
+}
+class Chunk {
+  +id: String
+  +ordinal: Integer
+  +text: Text
+  +pageStart: Integer
+  +pageEnd: Integer
+  +sectionPath: List<String>
+}
+class IngestionTask {
+  +id: UUID
+  +taskType: TaskType
+  +status: TaskStatus
+  +stage: String
+  +attempts: Integer
+  +retry()
+}
+class Conversation {
+  +id: UUID
+  +title: String
+  +mode: MessageMode
+  +updatedAt: DateTime
+}
+class Message {
+  +id: UUID
+  +role: MessageRole
+  +content: Text
+  +status: MessageStatus
+  +queryRewrite: String
+  +createdAt: DateTime
+}
+class Citation {
+  +id: UUID
+  +label: Integer
+  +documentName: String
+  +pageStart: Integer
+  +pageEnd: Integer
+  +excerpt: Text
+}
+enum DocumentStatus {
+  PENDING
+  PARSING
+  INDEXING
+  READY
+  FAILED
+  DELETING
+}
+User "1" o-- "0..*" Document : 上传 >
+Document "1" *-- "0..*" IndexVersion : 包含 >
+Document "1" --> "0..1" IndexVersion : 活动版本 >
+Document ..> DocumentStatus
+Document "1" o-- "0..*" IngestionTask : 产生 >
+IndexVersion "1" *-- "0..*" Chunk : 组成 >
+User "1" *-- "0..*" Conversation : 拥有 >
+Conversation "1" *-- "0..*" Message : 按时间组成 >
+Message "1" *-- "0..*" Citation : 引用快照 >
+Citation "0..*" --> "1" Chunk : 来源 >
+@enduml

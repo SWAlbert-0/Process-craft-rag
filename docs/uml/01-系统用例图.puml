@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam defaultFontName "Microsoft YaHei"
+skinparam dpi 150
+skinparam packageStyle rectangle
+actor "工艺人员" as User
+actor "知识库管理员" as Admin
+actor "评估人员" as Evaluator
+rectangle "基于 RAG 的轻量级企业工艺生成系统" {
+  usecase "知识问答" as QA
+  usecase "生成加工指令草案" as Craft
+  usecase "连续追问" as FollowUp
+  usecase "查看引用与原文" as Citation
+  usecase "管理会话" as Conversation
+  usecase "上传 PDF" as Upload
+  usecase "重建或删除文档" as Maintain
+  usecase "查看处理状态与失败原因" as Status
+  usecase "重试失败任务" as Retry
+  usecase "执行多文档评估" as Evaluate
+  usecase "导出评估结果" as Export
+}
+User --> QA
+User --> Craft
+User --> FollowUp
+User --> Citation
+User --> Conversation
+Admin --> Upload
+Admin --> Maintain
+Admin --> Status
+Admin --> Retry
+Evaluator --> Evaluate
+Evaluator --> Export
+Craft ..> Citation : <<include>>
+FollowUp ..> QA : <<include>>
+Evaluate ..> Export : <<include>>
+@enduml

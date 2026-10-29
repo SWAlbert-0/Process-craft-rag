@@ -1,0 +1,48 @@
+@startuml
+top to bottom direction
+skinparam shadowing false
+skinparam defaultFontName "Microsoft YaHei"
+skinparam dpi 150
+skinparam componentStyle rectangle
+package "表现层" {
+  component "Vue Web 工作台" as Web
+}
+package "应用服务层" {
+  component "认证与权限" as Auth
+  component "文档服务" as DocumentAPI
+  component "会话与消息服务" as MessageAPI
+  component "评估服务" as EvaluationAPI
+}
+package "领域能力层" {
+  component "RAG 编排器" as RAG
+  component "混合检索与重排序" as Retrieval
+  component "引用校验" as Citation
+  component "文档处理 Worker" as Worker
+}
+package "基础设施层" {
+  database "SQLite" as DB
+  database "Qdrant" as Vector
+  storage "BM25 索引" as BM25
+  storage "PDF 文件存储" as Files
+  component "大模型 API" as LLM
+}
+Web --> Auth : HTTPS
+Web --> DocumentAPI : REST
+Web --> MessageAPI : REST / SSE
+Web --> EvaluationAPI : REST
+DocumentAPI --> Worker : 创建任务
+Worker --> Files : 读取 PDF
+Worker --> Vector : 写入向量
+Worker --> BM25 : 构建索引
+MessageAPI --> RAG : 问题与历史
+RAG --> Retrieval : 独立检索问题
+Retrieval --> Vector : 稠密召回
+Retrieval --> BM25 : 稀疏召回
+RAG --> LLM : 受控上下文
+RAG --> Citation : 输出与候选块
+DocumentAPI --> DB
+MessageAPI --> DB
+EvaluationAPI --> DB
+Worker --> DB
+Citation --> DB : 保存引用快照
+@enduml

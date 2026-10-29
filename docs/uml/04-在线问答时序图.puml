@@ -1,0 +1,42 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName "Microsoft YaHei"
+skinparam dpi 150
+actor "工艺人员" as User
+boundary "Web 工作台" as Web
+control "消息服务" as MessageAPI
+control "RAG 编排器" as RAG
+entity "会话存储" as History
+control "稠密检索器" as Dense
+control "稀疏检索器" as Sparse
+control "融合与重排序" as Rank
+control "大模型网关" as LLM
+entity "消息与引用存储" as Store
+User -> Web : 提交问题
+Web -> MessageAPI : POST /conversations/{id}/messages
+MessageAPI -> RAG : generate(question, conversationId)
+RAG -> History : 读取近期历史
+History --> RAG : 历史消息
+RAG -> RAG : 构造独立检索问题
+par 两路召回
+  RAG -> Dense : retrieve(query, topK)
+  Dense --> RAG : 稠密候选
+else
+  RAG -> Sparse : retrieve(query, topK)
+  Sparse --> RAG : 稀疏候选
+end
+RAG -> Rank : fuseAndRerank(candidates)
+Rank --> RAG : 高相关上下文
+alt 证据充分
+  RAG -> LLM : generate(context, allowedCitations)
+  LLM --> RAG : 回答与引用编号
+  RAG -> RAG : 校验结构与引用白名单
+else 证据不足
+  RAG -> RAG : 生成证据不足说明
+end
+RAG -> Store : 保存消息、配置与引用快照
+Store --> RAG : 持久化成功
+RAG --> MessageAPI : 完整消息
+MessageAPI --> Web : JSON / SSE
+Web --> User : 展示回答与可核查引用
+@enduml

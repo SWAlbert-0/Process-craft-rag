@@ -1,0 +1,32 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName "Microsoft YaHei"
+skinparam dpi 150
+start
+:管理员上传 PDF;
+:校验类型、大小与内容哈希;
+if (文件合法且未重复?) then (是)
+  :创建文档与持久任务;
+  :按页解析文本并保留页码;
+  :清洗与结构感知分块;
+  :批量生成向量;
+  fork
+    :写入暂存 Qdrant 集合;
+  fork again
+    :构建暂存 BM25 索引;
+  end fork
+  if (两路索引一致且完整?) then (是)
+    :原子发布活动索引版本;
+  else (否)
+    :记录失败阶段与脱敏原因;
+    :等待从安全阶段重试;
+    stop
+  endif
+else (否)
+  :返回校验错误或重复提示;
+  stop
+endif
+:文档状态置为 READY;
+:开放混合检索;
+stop
+@enduml
