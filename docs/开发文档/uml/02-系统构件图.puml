@@ -1,0 +1,38 @@
+@startuml
+!pragma layout smetana
+left to right direction
+skinparam shadowing false
+skinparam defaultFontName "Microsoft YaHei"
+skinparam dpi 150
+skinparam componentStyle rectangle
+skinparam linetype ortho
+package "表现层" {
+  component "Vue Web 工作台" as Web
+}
+package "应用服务层" {
+  component "FastAPI 应用服务\n认证 / 文档 / 会话 / 评估" as App
+  component "文档处理 Worker\n解析 / 分块 / 嵌入 / 发布" as Worker
+}
+package "领域能力层" {
+  component "RAG 编排器\n混合检索 / 重排序 / 引用校验" as RAG
+}
+package "基础设施层" {
+  database "SQLite\n权威元数据" as DB
+  package "检索索引" as Index {
+    database "Qdrant" as Vector
+    storage "BM25 索引" as BM25
+  }
+  storage "PDF 文件存储" as Files
+}
+package "外部模型服务" {
+  component "大模型 API" as LLM
+}
+Web --> App : HTTPS / REST / SSE
+App --> Worker : 创建任务
+App --> RAG : 问题与历史
+App --> DB : 元数据读写
+RAG --> LLM : 受控上下文
+RAG --> Index : 混合召回
+Worker --> Files : 读取 PDF
+Worker --> Index : 构建双路索引
+@enduml
