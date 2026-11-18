@@ -1,0 +1,297 @@
+{
+  "downloaded_at": "2026-11-18",
+  "datasets": [
+    {
+      "id": "structured_ext",
+      "path": "05-结构化扩展验证/factory-ontology",
+      "repository": "https://github.com/data3oil/factory-ontology",
+      "commit": "9a1860a1a7a33b9951ad97704c35e60eb5b33853",
+      "license": "Apache-2.0",
+      "git_tracking": "included",
+      "validation": {
+        "csv_files": 15,
+        "csv_rows": {
+          "data_machining\\mach_customers.csv": 4,
+          "data_machining\\mach_equipment.csv": 6,
+          "data_machining\\mach_products.csv": 6,
+          "data_machining\\mach_sales.csv": 5,
+          "data_manufacturing\\equipment.csv": 5,
+          "data_manufacturing\\line.csv": 3,
+          "data_manufacturing\\supplier.csv": 3,
+          "data_valve\\valve_batch_ingredient.csv": 37,
+          "data_valve\\valve_batches.csv": 15,
+          "data_valve\\valve_customers.csv": 8,
+          "data_valve\\valve_equipment.csv": 10,
+          "data_valve\\valve_products.csv": 8,
+          "data_valve\\valve_qc.csv": 24,
+          "data_valve\\valve_raw_materials.csv": 10,
+          "data_valve\\valve_sales.csv": 30
+        }
+      }
+    },
+    {
+      "id": "kgqa_conditional",
+      "path": "06-KGQA条件验证/Mecha-QA",
+      "repository": "https://github.com/reml-group/Mecha-QA",
+      "commit": "4f47d21a655c109bcaa8c465e26c8b94c474d6bf",
+      "license": "NOASSERTION",
+      "git_tracking": "data files ignored until license is confirmed",
+      "validation": {
+        "qa": {
+          "train.jsonl": 571,
+          "test.jsonl": 142,
+          "test_3d.jsonl": 370
+        },
+        "kg_triples": {
+          "kg.txt": 1767,
+          "kg_3d.txt": 838
+        },
+        "note": "Upstream dataset README says 1761 traditional triples; actual file and paper contain 1767."
+      }
+    },
+    {
+      "id": "generic_zh_demo",
+      "path": "07-通用RAG回归/KnowEval-demo-md",
+      "repository": "https://github.com/knowflow-ai/KnowEval",
+      "commit": "a890ce9480b509de43f210486b49a83bed9863d2",
+      "license": "Apache-2.0",
+      "git_tracking": "included",
+      "validation": {
+        "documents": 7,
+        "questions": 20,
+        "no_answer_questions": 3,
+        "document_sha256": "upstream manifest verified"
+      }
+    }
+  ],
+  "files": [
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\config\\lexicon_machining.json",
+      "bytes": 6069,
+      "sha256": "c764137ec9956f652633762325ff8ffc00a013b64cab908c6b0a813bbe251d9f"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\config\\lexicon_manufacturing.json",
+      "bytes": 5428,
+      "sha256": "e12d26daf8953b1ca9d2251aab30c9ab698266a0c0de4e306ae9cee97d7b254b"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\config\\lexicon_valve.json",
+      "bytes": 22498,
+      "sha256": "3cf0c699fb65b964bb0c31103f70b0ea0e87a0963fa1140172cd8614107a95bd"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\config\\ontology_schema.json",
+      "bytes": 12580,
+      "sha256": "ed166c3c0805f41d95058f3ada1e36b98e5ac201a8dcd44b6089d53276d9a03d"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\config\\ontology_schema_valve.json",
+      "bytes": 113783,
+      "sha256": "c24d09c52c9d24563669a4c9eaf58c900c20de0756cb0ab5ccdac8812736fa60"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_machining\\mach_customers.csv",
+      "bytes": 209,
+      "sha256": "6f28f29ae8555fdd69ef473acc17516f07a97efbe0a2842579cb04433500d470"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_machining\\mach_equipment.csv",
+      "bytes": 490,
+      "sha256": "c607d77d9b2991d58633406aa4fed8d7203821a3925933b0508d7b127313d7a3"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_machining\\mach_products.csv",
+      "bytes": 370,
+      "sha256": "d6d86ced39ecaee664e103d45a3a7a312901b29e2320488325296cd79a1ede98"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_machining\\mach_sales.csv",
+      "bytes": 221,
+      "sha256": "d542f77137383fca4b8f35b45c1dbf21671d7df25bb4b4457ec8254df8abe663"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_manufacturing\\equipment.csv",
+      "bytes": 267,
+      "sha256": "ddd9ee5e7b731d49168a6c9dacc04a2b889338fca7aa714940f6c9a99ddf6c7f"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_manufacturing\\line.csv",
+      "bytes": 90,
+      "sha256": "29aa8120e630518fe06de25dff6972917b52ac4ed359522e8747100cf3f403ff"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_manufacturing\\supplier.csv",
+      "bytes": 88,
+      "sha256": "2cb531655051ef28a7c57852aba1bd45d4ba3b3dd2edbd7b2e1e37d433cf8127"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\valve_batch_ingredient.csv",
+      "bytes": 389,
+      "sha256": "ace2a05ffc5002a42e6a81f859b844e369ecb0a8033dfbc87234a0127ef2e336"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\valve_batches.csv",
+      "bytes": 951,
+      "sha256": "84cff917ea32466d756a45ffbc85d3b1068cc0f7946cc2241f39bb9ed6684515"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\valve_customers.csv",
+      "bytes": 345,
+      "sha256": "aa3c7f353afcbb58a6e12444c3f30a2d75192e79bda4663ad11d0e836c6d2e08"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\valve_equipment.csv",
+      "bytes": 817,
+      "sha256": "2048ce54fad18990f6f3e0389165ff01743ea1e00c6328a5b72c37dd972cc0c9"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\valve_products.csv",
+      "bytes": 967,
+      "sha256": "0daad339753e1b94d392db8f5f21ea239dbce191019e71e99241c3764ae6e0ba"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\valve_qc.csv",
+      "bytes": 1853,
+      "sha256": "827ea41d9a053441f9eff26b5a13fefeefb0229adda7e50ea682f072121bfb82"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\valve_raw_materials.csv",
+      "bytes": 511,
+      "sha256": "42fbd506599b8d68225f5cd40175f31f222fc70e55edfca2803bcd878479be1d"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\valve_sales.csv",
+      "bytes": 1110,
+      "sha256": "0369ceda98a15064e95d9bc06d1a6127121285079d66e666d2a55c49f4d3e685"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\data_valve\\数据来源说明.md",
+      "bytes": 606,
+      "sha256": "f83160c700c4b1a20e1d1326e1bc2a1837c47e025ab6f5e042908afdc1115f21"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "dataset": "structured_ext",
+      "path": "05-结构化扩展验证\\factory-ontology\\NOTICE",
+      "bytes": 1915,
+      "sha256": "0a69ab2582d3df6bc4b2c4287111a5a25d20466602473b009ce696df3db123e3"
+    },
+    {
+      "dataset": "kgqa_conditional",
+      "path": "06-KGQA条件验证\\Mecha-QA\\kg.txt",
+      "bytes": 132010,
+      "sha256": "554df9b019ea7ccb9ee19126621392bf0a8efc052b2b9b2a263df4acb58e36c4"
+    },
+    {
+      "dataset": "kgqa_conditional",
+      "path": "06-KGQA条件验证\\Mecha-QA\\kg_3d.txt",
+      "bytes": 48731,
+      "sha256": "b42ee668b32b8f1cb86f4c0a4b1e548931ecbb47591056eacb8cd59cdd2873f9"
+    },
+    {
+      "dataset": "kgqa_conditional",
+      "path": "06-KGQA条件验证\\Mecha-QA\\QA\\test.jsonl",
+      "bytes": 45478,
+      "sha256": "5b16409451e8c1b2c21549f547bd14ae5351ad3f1edbf608045f2432d585a0cb"
+    },
+    {
+      "dataset": "kgqa_conditional",
+      "path": "06-KGQA条件验证\\Mecha-QA\\QA\\test_3d.jsonl",
+      "bytes": 129738,
+      "sha256": "aa3b84f19a70a65185d3f02cc6d6f95e8ebfeedb31959271c1d1a24a10d7a7ee"
+    },
+    {
+      "dataset": "kgqa_conditional",
+      "path": "06-KGQA条件验证\\Mecha-QA\\QA\\train.jsonl",
+      "bytes": 178772,
+      "sha256": "369d9e928faa17d889c9b3188f2ae249cb8f0e203b7d88953aad8a38ea529805"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\docs\\01-潮汐实时计算系统.md",
+      "bytes": 604,
+      "sha256": "1a6da8af7701d58f9bb36e506137730f27aa6743878809e6fbfdb1f72addc8a3"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\docs\\02-沈墨.md",
+      "bytes": 523,
+      "sha256": "04a6c8e17179bd97cf99045260702492023f55cec930b8732e1cbe0e01363f40"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\docs\\03-岚图研究院.md",
+      "bytes": 580,
+      "sha256": "7abde86700c7606e22010f06d9c1670da7bc9c7c267c2d28d52ab1e308b89d89"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\docs\\04-潮汐系统技术参数手册.md",
+      "bytes": 1260,
+      "sha256": "c204f02038c353858d00d4bef7c3e5e5af0882beca201a0a53c1221e14e1d340"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\docs\\05-潮汐v3.0发布公告.md",
+      "bytes": 791,
+      "sha256": "60ec1f0f2a084edea42db0d90cf683f40df789ac90e4889980f7d0c4db16aabd"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\docs\\06-岚图研究院2024年度报告.md",
+      "bytes": 550,
+      "sha256": "99f40745b26e02f14341d2cdb4609a877f6b360954e4bc5c840466ff1d23e898"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\docs\\07-韩知微.md",
+      "bytes": 477,
+      "sha256": "4fb93de9695014a09215a311a962e6b956ffeeddbd5f3deea0bcc1f244db69f4"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\manifest.json",
+      "bytes": 1271,
+      "sha256": "9258d5a57ba53365fa082198c5f44beb0dca23a0a15d400de5eb74301a4b6f49"
+    },
+    {
+      "dataset": "generic_zh_demo",
+      "path": "07-通用RAG回归\\KnowEval-demo-md\\questions.jsonl",
+      "bytes": 8008,
+      "sha256": "d6b00e032ba7bbb34365f4949f65b290d7a3566e7a4966215f4a645f6a551136"
+    }
+  ]
+}
