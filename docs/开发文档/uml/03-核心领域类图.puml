@@ -15,8 +15,13 @@ class Document {
   +contentSha256: String
   +status: DocumentStatus
   +pageCount: Integer
-  +publishVersion()
   +markDeleting()
+}
+class KnowledgeBase {
+  +id: UUID
+  +name: String
+  +activeIndexVersionId: UUID
+  +activateVersion()
 }
 class IndexVersion {
   +id: UUID
@@ -74,8 +79,9 @@ enum DocumentStatus {
   DELETING
 }
 User "1" o-- "0..*" Document : 上传 >
-Document "1" *-- "0..*" IndexVersion : 包含 >
-Document "1" --> "0..1" IndexVersion : 活动版本 >
+KnowledgeBase "1" *-- "0..*" IndexVersion : 包含 >
+KnowledgeBase "1" --> "0..1" IndexVersion : 活动快照 >
+IndexVersion "0..*" -- "0..*" Document : 固定文档集合 >
 Document ..> DocumentStatus
 Document "1" o-- "0..*" IngestionTask : 产生 >
 IndexVersion "1" *-- "0..*" Chunk : 组成 >
