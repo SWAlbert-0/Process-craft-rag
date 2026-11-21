@@ -1,0 +1,131 @@
+name: process-craft-rag
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.15.4
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"
+    volumes:
+      - qdrant-data:/qdrant/storage
+
+  migrate:
+    build: ./backend
+    environment:
+      DATA_DIR: /data
+      DATABASE_URL: sqlite:////data/db/process_craft.db
+    volumes:
+      - app-data:/data
+    command: ["alembic", "upgrade", "head"]
+
+  api:
+    build: ./backend
+    environment:
+      DATA_DIR: /data
+      BACKUP_DIR: /backups
+      LOG_DIR: /logs
+      DATABASE_URL: sqlite:////data/db/process_craft.db
+      QDRANT_URL: http://qdrant:6333
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.deepseek.com}
+      LLM_MODEL: ${LLM_MODEL:-deepseek-flash}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-90}
+      LLM_MAX_OUTPUT_TOKENS: ${LLM_MAX_OUTPUT_TOKENS:-8000}
+      MODEL_MAX_RETRIES: ${MODEL_MAX_RETRIES:-2}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-dashscope}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-v4}
+      EMBEDDING_DIMENSIONS: ${EMBEDDING_DIMENSIONS:-1024}
+      EMBEDDING_BATCH_SIZE: ${EMBEDDING_BATCH_SIZE:-10}
+      RERANK_PROVIDER: ${RERANK_PROVIDER:-dashscope}
+      RERANK_MODEL: ${RERANK_MODEL:-qwen3-rerank}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      DASHSCOPE_WORKSPACE_ID: ${DASHSCOPE_WORKSPACE_ID:-}
+      DASHSCOPE_REGION: ${DASHSCOPE_REGION:-cn-beijing}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-50}
+      MAX_PDF_PAGES: ${MAX_PDF_PAGES:-400}
+      CHUNK_TARGET_CHARS: ${CHUNK_TARGET_CHARS:-900}
+      CHUNK_OVERLAP_CHARS: ${CHUNK_OVERLAP_CHARS:-120}
+      CHUNK_MIN_CHARS: ${CHUNK_MIN_CHARS:-120}
+      DENSE_TOP_K: ${DENSE_TOP_K:-20}
+      SPARSE_TOP_K: ${SPARSE_TOP_K:-20}
+      RRF_K: ${RRF_K:-60}
+      FUSION_TOP_N: ${FUSION_TOP_N:-30}
+      RERANK_TOP_N: ${RERANK_TOP_N:-8}
+      CONTEXT_TOKEN_BUDGET: ${CONTEXT_TOKEN_BUDGET:-5000}
+      RERANK_MIN_SCORE: ${RERANK_MIN_SCORE:-0}
+      CORS_ORIGINS: http://localhost:8080
+    volumes:
+      - app-data:/data
+      - app-backups:/backups
+      - app-logs:/logs
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      qdrant:
+        condition: service_started
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  worker:
+    build: ./backend
+    environment:
+      DATA_DIR: /data
+      BACKUP_DIR: /backups
+      LOG_DIR: /logs
+      DATABASE_URL: sqlite:////data/db/process_craft.db
+      QDRANT_URL: http://qdrant:6333
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.deepseek.com}
+      LLM_MODEL: ${LLM_MODEL:-deepseek-flash}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-90}
+      LLM_MAX_OUTPUT_TOKENS: ${LLM_MAX_OUTPUT_TOKENS:-8000}
+      MODEL_MAX_RETRIES: ${MODEL_MAX_RETRIES:-2}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-dashscope}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-v4}
+      EMBEDDING_DIMENSIONS: ${EMBEDDING_DIMENSIONS:-1024}
+      EMBEDDING_BATCH_SIZE: ${EMBEDDING_BATCH_SIZE:-10}
+      RERANK_PROVIDER: ${RERANK_PROVIDER:-dashscope}
+      RERANK_MODEL: ${RERANK_MODEL:-qwen3-rerank}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      DASHSCOPE_WORKSPACE_ID: ${DASHSCOPE_WORKSPACE_ID:-}
+      DASHSCOPE_REGION: ${DASHSCOPE_REGION:-cn-beijing}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-50}
+      MAX_PDF_PAGES: ${MAX_PDF_PAGES:-400}
+      CHUNK_TARGET_CHARS: ${CHUNK_TARGET_CHARS:-900}
+      CHUNK_OVERLAP_CHARS: ${CHUNK_OVERLAP_CHARS:-120}
+      CHUNK_MIN_CHARS: ${CHUNK_MIN_CHARS:-120}
+      DENSE_TOP_K: ${DENSE_TOP_K:-20}
+      SPARSE_TOP_K: ${SPARSE_TOP_K:-20}
+      RRF_K: ${RRF_K:-60}
+      FUSION_TOP_N: ${FUSION_TOP_N:-30}
+      RERANK_TOP_N: ${RERANK_TOP_N:-8}
+      CONTEXT_TOKEN_BUDGET: ${CONTEXT_TOKEN_BUDGET:-5000}
+      RERANK_MIN_SCORE: ${RERANK_MIN_SCORE:-0}
+    volumes:
+      - app-data:/data
+      - app-backups:/backups
+      - app-logs:/logs
+    depends_on:
+      qdrant:
+        condition: service_started
+      migrate:
+        condition: service_completed_successfully
+    command: ["python", "-m", "app.worker"]
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  qdrant-data:
+  app-data:
+  app-backups:
+  app-logs:

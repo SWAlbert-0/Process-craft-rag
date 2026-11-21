@@ -29,8 +29,13 @@ data/
 backups/
 logs/
 *.log
+jieba.cache
+
+# Local model files
+models/
 
 # Test and build output
+pytest-*/
 coverage/
 htmlcov/
 .coverage
