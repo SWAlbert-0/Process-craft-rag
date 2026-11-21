@@ -1,0 +1,135 @@
+{
+  "dataset_id": "i1_a4_smoke_v1",
+  "document_sha256": "e0fff763cdbc652ed87d02e65b15f1c6e099b40addd4b3e379225da499dcf165",
+  "page_numbering": "PDF physical pages, starting at 1",
+  "annotation_method": "Developer review of extracted A4 source text before model runs; not independent process-engineer evaluation",
+  "questions": [
+    {
+      "question_id": "I1-01",
+      "question": "According to Section 3, what is the definition of on-machine measurement?",
+      "question_type": "definition_fact",
+      "mode": "qa",
+      "expected_points": [
+        "The measurement target is located within the machine tool workspace.",
+        "The measurement device is within or nearby the machine tool workspace."
+      ],
+      "expected_pages": [
+        13
+      ],
+      "should_refuse": false,
+      "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+    },
+    {
+      "question_id": "I1-02",
+      "question": "What benefits and limitations of on-machine measurement does the document describe compared with a stand-alone CMM?",
+      "question_type": "definition_fact",
+      "mode": "qa",
+      "expected_points": [
+        "OMM can reduce machining time, scrap, rework, manual intervention and the second-fixation problem.",
+        "The machine tool environment has variable temperature, humidity and particulate matter, so OMM is generally more error-prone than a stand-alone CMM in a controlled environment.",
+        "The choice should depend on measurement details, environment, part cost and risk."
+      ],
+      "expected_pages": [
+        11,
+        12
+      ],
+      "should_refuse": false,
+      "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+    },
+    {
+      "question_id": "I1-03",
+      "question": "Before machining, which measurements and checks are listed for calibrating a machine tool prior to operation on stock or a part?",
+      "question_type": "process_calibration",
+      "mode": "qa",
+      "expected_points": [
+        "Checks include machine position and geometric errors, spindle axis rotation errors, contouring errors, repeatability, straightness and perpendicularity, and probing performance.",
+        "The document lists instruments such as encoders, standard spheres, ball bars, electronic levels, lasers, spindle analyzers and interferometers.",
+        "Checks support specification adherence, future measurement accuracy and modified offsets or G-code."
+      ],
+      "expected_pages": [
+        21
+      ],
+      "should_refuse": false,
+      "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+    },
+    {
+      "question_id": "I1-04",
+      "question": "Describe the adaptive machining sequence in Section 6.3.7 that uses a probe on the machine tool spindle.",
+      "question_type": "process_measurement",
+      "mode": "qa",
+      "expected_points": [
+        "Cut the part to an interim or near-finished shape.",
+        "Probe the semi-finish cut using the spindle probe.",
+        "Adjust machine offsets for part deflection, tool deflection, tool wear and other factors.",
+        "Bring the part into tolerance with a final cut."
+      ],
+      "expected_pages": [
+        47
+      ],
+      "should_refuse": false,
+      "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+    },
+    {
+      "question_id": "I1-05",
+      "question": "In Section 6.1.4, at what exact temperature should the reference artifact be calibrated, and to what should its uncertainty be traceable?",
+      "question_type": "exact_numeric",
+      "mode": "qa",
+      "expected_points": [
+        "20°C.",
+        "Uncertainty traceable to a national measurement laboratory, with NIST and NPL given as examples."
+      ],
+      "expected_pages": [
+        24
+      ],
+      "should_refuse": false,
+      "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+    },
+    {
+      "question_id": "I1-06",
+      "question": "根据文档，机床测量如何减少二次装夹问题，并在什么条件下可能改善产品质量？",
+      "question_type": "chinese_crosslingual",
+      "mode": "qa",
+      "expected_points": [
+        "机床测量避免把工件移到 CMM 时产生的二次装夹问题。",
+        "在测量足够准确且测量成本低于缺陷零件成本时，可能改善质量、客户满意度和盈利能力。",
+        "机床几何精度必须足以满足零件公差，并需要持续监控和校准。"
+      ],
+      "expected_pages": [
+        11,
+        12
+      ],
+      "should_refuse": false,
+      "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+    },
+    {
+      "question_id": "I1-07",
+      "question": "请基于资料为一个未指定零件生成使用主轴测头进行机内间歇测量的工艺草案。材料、图纸、公差和设备型号均未知，必须标为待确认；重点说明自适应加工中的测量顺序。",
+      "question_type": "craft_instruction",
+      "mode": "craft_instruction",
+      "expected_points": [
+        "保留材料、图纸、公差和设备型号等待确认项，不编造切削参数。",
+        "草案包含中间形状切削、主轴测头测量半精加工特征、调整机床偏置、最终切削使零件进入公差的顺序。",
+        "包含测头使用前的校准注意事项和固定人工审核提示。"
+      ],
+      "expected_pages": [
+        47
+      ],
+      "should_refuse": false,
+      "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+    },
+    {
+      "question_id": "I1-08",
+      "question": "For a 6061 aluminum shaft, what exact spindle speed in rpm and feed rate in mm/min should be used for turning?",
+      "question_type": "no_answer",
+      "mode": "qa",
+      "expected_points": [
+        "The document does not provide an exact turning spindle speed or feed rate for a 6061 aluminum shaft.",
+        "The response should state insufficient evidence and request applicable process, material, tool and machine information rather than inventing values."
+      ],
+      "expected_pages": [],
+      "should_refuse": true,
+      "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+    }
+  ],
+  "document_id": "e92d2975-fd02-4a38-9ee2-17a96c70341a"
+}
