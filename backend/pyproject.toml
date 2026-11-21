@@ -1,0 +1,51 @@
+[project]
+name = "process-craft-rag"
+version = "0.1.0"
+description = "Evidence-first manufacturing process RAG workbench"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "alembic>=1.14,<2",
+  "fastapi>=0.115,<1",
+  "httpx>=0.28,<1",
+  "jieba>=0.42,<1",
+  "pydantic-settings>=2.7,<3",
+  "pymupdf>=1.25,<2",
+  "python-multipart>=0.0.20,<1",
+  "qdrant-client>=1.15,<1.16",
+  "rank-bm25>=0.2.2,<1",
+  "sqlalchemy>=2.0,<3",
+  "uvicorn[standard]>=0.34,<1",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8,<9",
+  "pytest-asyncio>=0.25,<1",
+  "ruff>=0.9,<1",
+]
+
+[project.scripts]
+process-craft-api = "app.main:run"
+process-craft-worker = "app.worker:run"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.File", "fastapi.Query"]
