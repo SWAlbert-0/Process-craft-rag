@@ -344,7 +344,7 @@ onUnmounted(() => {
         <div class="workbench-heading">
           <div>
             <p class="eyebrow">EVIDENCE BEFORE ANSWER</p>
-            <h1>先找到依据，再生成答案。</h1>
+            <h1>RAG生成</h1>
             <p>围绕已入库资料提问，逐条核对文档名、物理页码与检索原文。</p>
           </div>
           <span class="snapshot-label">版本化索引 · 引用可溯源</span>
